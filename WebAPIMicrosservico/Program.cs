@@ -1,6 +1,7 @@
 using WebAPIMicrosservico.Features.User.Domain.Repository;
 using WebAPIMicrosservico.Features.User.Domain.UseCases;
 using WebAPIMicrosservico.Features.User.Infra.Repositories;
+using WebAPIMicrosservico.Services;
 
 namespace WebAPIMicrosservico
 {
@@ -20,6 +21,7 @@ namespace WebAPIMicrosservico
             // Add DI container
             builder.Services.AddScoped<ISubmitUserUseCase, SubmitUserUseCase>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IQueueService, QueueService>();
 
             var app = builder.Build();
 
