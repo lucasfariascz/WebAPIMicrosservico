@@ -6,9 +6,10 @@ namespace WebAPIMicrosservico.Middleware
 {
     public class ExceptionFilter : IExceptionFilter
     {
-
+        // Método OnException da interface IExceptionFilter
         public void OnException(ExceptionContext context)
         {
+            // Cria um objeto Error para representar exceção
             var error = new Error
             {
                 StatusCode = "500",

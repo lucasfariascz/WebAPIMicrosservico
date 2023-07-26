@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using WebAPIMicrosservico.Features.User.Controllers.dto;
 using WebAPIMicrosservico.Features.User.Domain.UseCases;
 using WebAPIMicrosservico.Middleware;
@@ -11,18 +10,20 @@ namespace WebAPIMicrosservico.Features.User.Controllers
     [ApiController]
     public class SubmitUserController : ControllerBase
     {
-        private readonly ISubmitUserUseCase _submitUserUseCase;
+        private readonly ISubmitUserUseCase submitUserUseCase;
 
+        // Construtor da classe que recebe ISubmitUserUseCase da injeção de dependência 
         public SubmitUserController(ISubmitUserUseCase submitUserUseCase)
         {
-            _submitUserUseCase = submitUserUseCase;
+            this.submitUserUseCase = submitUserUseCase;
         }
 
         [HttpPost]
         [ServiceFilter(typeof(AuthorizationFilter))]
         public async Task<IActionResult> Post([FromBody] SubmitUserDTO submitUserDTO)
         {
-            var result = await _submitUserUseCase.SubmitUser(submitUserDTO);
+            // Chama o método SubmitUser da instância de ISubmitUserUseCase
+            var result = await this.submitUserUseCase.SubmitUser(submitUserDTO);
 
             return Ok(result);
         }

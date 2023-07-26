@@ -14,17 +14,16 @@ namespace WebAPIMicrosservico
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers(cfg =>
             {
                 cfg.Filters.Add(typeof(ExceptionFilter));
             });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Add DI container
+            // Injeção de dependências
             builder.Services.AddScoped<ISubmitUserUseCase, SubmitUserUseCase>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IQueueService, QueueService>();
@@ -32,7 +31,6 @@ namespace WebAPIMicrosservico
 
             builder.Services.AddSwaggerGen(c =>
              {
-                 // ...
 
                  // Configuração da autenticação do Swagger (JWT Bearer)
                  c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -71,7 +69,6 @@ namespace WebAPIMicrosservico
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minha API V1");
 
-                    // Configura a autenticação do Swagger UI
                     c.OAuthClientId("seu_client_id");
                     c.OAuthAppName("Minha API - Swagger");
                 });

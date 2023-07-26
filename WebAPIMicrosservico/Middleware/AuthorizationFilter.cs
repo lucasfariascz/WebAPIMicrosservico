@@ -4,7 +4,6 @@ namespace WebAPIMicrosservico.Middleware
 {
     public class AuthorizationFilter : IAuthorizationFilter
     {
-        private readonly string token;
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
@@ -28,8 +27,6 @@ namespace WebAPIMicrosservico.Middleware
 
         private bool IsValidToken(string receivedToken)
         {
-            // Aqui você pode implementar a lógica de validação do token
-            // Pode ser uma chamada a um serviço de autenticação, verificação em banco de dados, etc.
             // Por simplicidade, neste exemplo, estamos comparando o token recebido com um token fixo.
             return string.Equals(receivedToken.Substring(7), "986ghgrgtru989ASdsaerew13434545435", StringComparison.OrdinalIgnoreCase);
         }
