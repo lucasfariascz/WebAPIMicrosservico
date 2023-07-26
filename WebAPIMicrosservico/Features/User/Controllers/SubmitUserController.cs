@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using WebAPIMicrosservico.Features.User.Controllers.dto;
 using WebAPIMicrosservico.Features.User.Domain.UseCases;
+using WebAPIMicrosservico.Middleware;
 
 namespace WebAPIMicrosservico.Features.User.Controllers
 {
@@ -18,6 +19,7 @@ namespace WebAPIMicrosservico.Features.User.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         public async Task<IActionResult> Post([FromBody] SubmitUserDTO submitUserDTO)
         {
             var result = await _submitUserUseCase.SubmitUser(submitUserDTO);

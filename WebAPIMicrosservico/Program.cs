@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.OpenApi.Models;
 using WebAPIMicrosservico.Features.User.Domain.Repository;
 using WebAPIMicrosservico.Features.User.Domain.UseCases;
 using WebAPIMicrosservico.Features.User.Infra.Repositories;
+using WebAPIMicrosservico.Middleware;
 using WebAPIMicrosservico.Services;
 
 namespace WebAPIMicrosservico
@@ -22,6 +25,38 @@ namespace WebAPIMicrosservico
             builder.Services.AddScoped<ISubmitUserUseCase, SubmitUserUseCase>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IQueueService, QueueService>();
+            builder.Services.AddScoped<AuthorizationFilter>();
+
+            builder.Services.AddSwaggerGen(c =>
+             {
+                 // ...
+
+                 // Configuração da autenticação do Swagger (JWT Bearer)
+                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                 {
+                     Description = "Informe o token de autenticação no cabeçalho no formato 'Bearer {token}'.",
+                     Name = "Authorization",
+                     In = ParameterLocation.Header,
+                     Type = SecuritySchemeType.Http,
+                     Scheme = "bearer",
+                     BearerFormat = "JWT"
+                 });
+
+                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+             });
 
             var app = builder.Build();
 
@@ -29,7 +64,14 @@ namespace WebAPIMicrosservico
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minha API V1");
+
+                    // Configura a autenticação do Swagger UI
+                    c.OAuthClientId("seu_client_id");
+                    c.OAuthAppName("Minha API - Swagger");
+                });
             }
 
             app.UseHttpsRedirection();
