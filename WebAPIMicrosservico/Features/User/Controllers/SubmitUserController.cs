@@ -19,7 +19,8 @@ namespace WebAPIMicrosservico.Features.User.Controllers
         }
 
         [HttpPost]
-        [ServiceFilter(typeof(AuthorizationFilter))]
+        [ServiceFilter(typeof(ActionFilter))]
+        // [ServiceFilter(typeof(AuthorizationFilter))]
         public async Task<IActionResult> Post([FromBody] SubmitUserDTO submitUserDTO)
         {
             // Chama o método SubmitUser da instância de ISubmitUserUseCase

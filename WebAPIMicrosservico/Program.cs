@@ -4,8 +4,8 @@ using WebAPIMicrosservico.Features.User.Domain.Repository;
 using WebAPIMicrosservico.Features.User.Domain.UseCases;
 using WebAPIMicrosservico.Features.User.Infra.Repositories;
 using WebAPIMicrosservico.Middleware;
-using WebAPIMicrosservico.Services.Grpc;
 using WebAPIMicrosservico.Services.Queue;
+using WebAPIMicrosservicoConsumer.Services.Grpc;
 
 namespace WebAPIMicrosservico
 {
@@ -15,8 +15,6 @@ namespace WebAPIMicrosservico
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddGrpc();
 
             builder.Services.AddControllers(cfg =>
             {
@@ -32,6 +30,8 @@ namespace WebAPIMicrosservico
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IQueueService, QueueService>();
             builder.Services.AddScoped<AuthorizationFilter>();
+            builder.Services.AddScoped<ActionFilter>();
+            builder.Services.AddTransient<IContractWebAPIClient, ContractWebAPIClient>();
 
             builder.Services.AddSwaggerGen(c =>
              {
@@ -65,9 +65,6 @@ namespace WebAPIMicrosservico
 
             var app = builder.Build();
 
-            // Configure the HTTP request
-            app.MapGrpcService<ContractWebAPIService>();
-            app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

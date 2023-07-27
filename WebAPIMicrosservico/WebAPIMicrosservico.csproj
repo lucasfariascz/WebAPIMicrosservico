@@ -7,9 +7,9 @@
     <UserSecretsId>09e86753-6e6f-4fce-9890-0306200c3e83</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-	  <Protobuf Include="Protos\webApiMicro.proto" GrpcServices="Server" />
-  </ItemGroup>
+    <ItemGroup>
+	    <Protobuf Include="Protos\webApiMicro.proto" GrpcServices="Client" />
+    </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Middleware\IAuthorizationFilter.cs" />
@@ -20,6 +20,7 @@
     <PackageReference Include="Google.Protobuf" Version="3.23.4" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.55.0" />
     <PackageReference Include="Grpc.AspNetCore.Server" Version="2.55.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.55.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.2" />
     <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
