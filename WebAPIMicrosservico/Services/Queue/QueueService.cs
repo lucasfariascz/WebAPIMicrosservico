@@ -4,7 +4,7 @@ using System.Text.Json;
 using WebAPIMicrosservico.Config.ServiceBus;
 using WebAPIMicrosservico.Features.User.Domain.Models;
 
-namespace WebAPIMicrosservico.Services
+namespace WebAPIMicrosservico.Services.Queue
 {
     public class QueueService : IQueueService
     {

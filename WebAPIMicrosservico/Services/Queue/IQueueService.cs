@@ -1,6 +1,6 @@
 ﻿using WebAPIMicrosservico.Features.User.Domain.Models;
 
-namespace WebAPIMicrosservico.Services
+namespace WebAPIMicrosservico.Services.Queue
 {
     public interface IQueueService
     {

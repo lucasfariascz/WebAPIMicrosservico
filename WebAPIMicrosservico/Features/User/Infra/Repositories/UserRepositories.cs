@@ -1,7 +1,7 @@
 ﻿using CosmosDBExemple.Data;
 using WebAPIMicrosservico.Features.User.Domain.Models;
 using WebAPIMicrosservico.Features.User.Domain.Repository;
-using WebAPIMicrosservico.Services;
+using WebAPIMicrosservico.Services.Queue;
 
 namespace WebAPIMicrosservico.Features.User.Infra.Repositories
 {
