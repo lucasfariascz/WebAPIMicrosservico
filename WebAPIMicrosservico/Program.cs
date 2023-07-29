@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Filters;
+using WebAPIMicrosservico.Data;
 using Microsoft.OpenApi.Models;
 using WebAPIMicrosservico.Features.User.Domain.Repository;
 using WebAPIMicrosservico.Features.User.Domain.UseCases;
@@ -6,6 +6,8 @@ using WebAPIMicrosservico.Features.User.Infra.Repositories;
 using WebAPIMicrosservico.Middleware;
 using WebAPIMicrosservico.Services.Queue;
 using WebAPIMicrosservicoConsumer.Services.Grpc;
+using WebAPIMicrosservico.Features.User.Domain.Models;
+using CosmosDBExemple.Data;
 
 namespace WebAPIMicrosservico
 {
@@ -31,6 +33,7 @@ namespace WebAPIMicrosservico
             builder.Services.AddScoped<IQueueService, QueueService>();
             builder.Services.AddScoped<AuthorizationFilter>();
             builder.Services.AddScoped<ActionFilter>();
+            builder.Services.AddSingleton<INoSqlDatabase<UserModel>, NoSQLDatabase<UserModel>>();
             builder.Services.AddTransient<IContractWebAPIClient, ContractWebAPIClient>();
 
             builder.Services.AddSwaggerGen(c =>

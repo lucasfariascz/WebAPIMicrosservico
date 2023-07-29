@@ -14,7 +14,7 @@ namespace WebAPIMicrosservico.Features.User.Domain.UseCases
             this.userRepository = userRepository;
         }
 
-        public async Task<UserModel> SubmitUser(SubmitUserDTO submitUserDTO)
+        public async Task<string> SubmitUser(SubmitUserDTO submitUserDTO)
         {
             // Cria uma nova instância de UserModel e recebe seus dados com base no submitUserDTO
             var userModel = new UserModel
@@ -25,11 +25,8 @@ namespace WebAPIMicrosservico.Features.User.Domain.UseCases
                 Message = submitUserDTO.Message,
             };
 
-            // Chama o método SubmitUser da instância de IUserRepository
-            var userModelResult = await this.userRepository.SubmitUser(userModel);
-
-
-            return userModelResult;
+            // Chama o método SubmitUser da instância de IUserRepository e já retorna com a mensagem do Repository
+            return await this.userRepository.SubmitUser(userModel);
         }
     }
 }

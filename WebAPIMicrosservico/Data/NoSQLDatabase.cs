@@ -1,9 +1,10 @@
 ﻿using WebAPIMicrosservico.Config.DataBase;
 using Microsoft.Azure.Cosmos;
+using WebAPIMicrosservico.Data;
 
 namespace CosmosDBExemple.Data
 {
-    public class NoSQLDatabase<T>
+    public class NoSQLDatabase<T> : INoSqlDatabase<T>
     {
         private static readonly string EndpointUri = AppSettings.CosmosDdEndpointUri;
         private static readonly string PrimaryKey = AppSettings.CosmosDdPrimaryKey;

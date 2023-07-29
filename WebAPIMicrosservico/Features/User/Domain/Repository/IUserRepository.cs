@@ -5,6 +5,6 @@ namespace WebAPIMicrosservico.Features.User.Domain.Repository
 {
     public interface IUserRepository
     {
-        Task<UserModel> SubmitUser(UserModel userModel);
+        Task<string> SubmitUser(UserModel userModel);
     }
 }

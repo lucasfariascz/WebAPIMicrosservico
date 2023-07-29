@@ -7,13 +7,6 @@
     <UserSecretsId>09e86753-6e6f-4fce-9890-0306200c3e83</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="test\**" />
-    <Content Remove="test\**" />
-    <EmbeddedResource Remove="test\**" />
-    <None Remove="test\**" />
-  </ItemGroup>
-
     <ItemGroup>
 	    <Protobuf Include="Protos\webApiMicro.proto" GrpcServices="Client" />
     </ItemGroup>
@@ -30,6 +23,7 @@
     <PackageReference Include="Grpc.Net.Client" Version="2.55.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.35.2" />
     <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
+    <PackageReference Include="moq" Version="4.18.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
